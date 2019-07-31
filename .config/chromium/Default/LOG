@@ -1,0 +1,5 @@
+2019/07/30-15:34:55.709 cbb Recovering log #6
+2019/07/30-15:34:55.709 cbb Level-0 table #8: started
+2019/07/30-15:34:55.725 cbb Level-0 table #8: 772 bytes OK
+2019/07/30-15:34:55.737 cbb Delete type=0 #6
+2019/07/30-15:34:55.737 cbb Delete type=3 #4
