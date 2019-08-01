@@ -60,6 +60,7 @@ bindsym $mod+Shift+w exec firefox
 bindsym $mod+Shift+m exec spotify
 bindsym $mod+Shift+g exec moonlight
 bindsym $mod+Shift+f exec urxvt -e ranger
+bindsym $mod+Shift+v exec code
 
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
@@ -160,7 +161,7 @@ set $ws2 "2:web"
 set $ws3 "3:music"
 set $ws4 "4:filebrowser"
 set $ws5 "5:games"
-set $ws6 6
+set $ws6 "6:code"
 set $ws7 7
 set $ws8 8
 
@@ -440,3 +441,4 @@ for_window [class="Firefox"] move to workspace $ws2
 for_window [class="Spotify"] move to workspace $ws3
 for_window [class="Ranger"] move to workspace $ws4
 for_window [class="Moonlight"] move to workspace $ws5
+for_window [class="Code"] move to workspace $ws6
