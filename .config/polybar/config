@@ -64,8 +64,8 @@ modules-center = mpd
 ;modules-right = filesystem xbacklight pulseaudio memory cpu wlan eth battery date 
 modules-right = filesystem xbacklight pulseaudio memory cpu wlan date 
 
-tray-position = right
-tray-padding = 2
+;tray-position = right
+;tray-padding = 2
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
