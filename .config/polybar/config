@@ -59,11 +59,12 @@ font-2 = siji:pixelsize=10;1
 font-3 = "Font Awesome 5 Brands Regular:style=Regular"
 font-4 = "Font Awesome 5 Free Solid:style=Solid"
 font-5 = "Font Awesome 5 Free Regular:style=Regular"
+font-6 = "Weather Icons:size=12;1"
 
 modules-left = bspwm i3 spotify
 modules-center = mpd 
 ;modules-right = filesystem xbacklight pulseaudio memory cpu wlan eth battery date 
-modules-right = filesystem xbacklight pulseaudio memory cpu wlan date 
+modules-right = filesystem xbacklight pulseaudio memory cpu wlan eth battery date openweathermap-detailed
 
 ;tray-position = right
 ;tray-padding = 2
@@ -110,7 +111,7 @@ interval = 25
 mount-0 = /
 
 ;label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-mounted = %{F#ffffff}DISK: %{F-}%percentage_used%%
+label-mounted = %{F#ffffff} %{F-}%percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -140,7 +141,7 @@ label-empty-padding = 2
 type = internal/i3
 
 ; Workspace Icons
-ws-icon-0 = "1:term;"
+ws-icon-0 = "1:term;"
 ws-icon-1 = "2:web;"
 ws-icon-2 = "3:music;"
 ws-icon-3 = "4:filebrowser;"
@@ -202,8 +203,9 @@ label-song-ellipsis = true
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <label> <bar>
-label = BL
+;format = <label> <bar>
+format = <label> 
+label = " %percentage%%"
 
 bar-width = 10
 bar-indicator = |
@@ -227,7 +229,7 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #f90000
-label = "CPU: %percentage:2%%"
+label = " %percentage:2%%"
 
 [module/memory]
 type = internal/memory
@@ -235,16 +237,18 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #4bffdc
-label = "Mem: %percentage_used%%"
+;label = "Mem: %percentage_used%%"
+label = " %percentage_used%%"
 
 [module/wlan]
 type = internal/network
-interface = net1
+;interface = net1
+interface = wlp1s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-label-connected = %essid%
+;format-connected-underline = #9f78e1
+label-connected = " %essid%"
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -294,7 +298,7 @@ format-disconnected =
 [module/date]
 type = internal/date
 format-prefix = " "
-label = %{F#fff}%date%%{F-}  %{F#fff}%time%%{F-}
+label = " %{F#fff}%date%%{F-}  %{F#fff}%time%%{F-}"
 date-alt = %m/%d/%Y
 date = %A, %B %d, %Y
 time = %I:%M %p
@@ -303,11 +307,12 @@ time-alt = ${self.time}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+;format-volume = <label-volume> <bar-volume>
+format-volume = <label-volume> 
+label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = 🔇 muted
+label-muted =  muted
 label-muted-foreground = #666
 
 bar-volume-width = 10
@@ -355,38 +360,70 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
+;[module/battery]
+;type = internal/battery
+;battery = BAT0
+;adapter = ADP1
+;;full-at = 98
+;
+;format-charging = <animation-charging> <label-charging>
+;format-charging-underline = #ffb52a
+;
+;format-discharging = <animation-discharging> <label-discharging>
+;format-discharging-underline = ${self.format-charging-underline}
+;
+;format-full-prefix = " "
+;format-full-prefix-foreground = ${colors.foreground-alt}
+;format-full-underline = ${self.format-charging-underline}
+;
+;ramp-capacity-0 = 
+;ramp-capacity-1 = 
+;ramp-capacity-2 = 
+;ramp-capacity-foreground = ${colors.foreground-alt}
+;
+;animation-charging-0 = 
+;animation-charging-1 = 
+;animation-charging-2 = 
+;animation-charging-foreground = ${colors.foreground-alt}
+;animation-charging-framerate = 750
+;
+;animation-discharging-0 = 
+;animation-discharging-1 = 
+;animation-discharging-2 = 
+;animation-discharging-foreground = ${colors.foreground-alt}
+;animation-discharging-framerate = 750
+
 [module/battery]
 type = internal/battery
-battery = BAT0
-adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
 
-format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = #ffa900
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
-format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+bar-capacity-width = 10
+bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
+bar-capacity-fill = █
+bar-capacity-fill-foreground = #ddffffff
+bar-capacity-fill-font = 3
+bar-capacity-empty = █
+bar-capacity-empty-font = 3
+bar-capacity-empty-foreground = #44ffffff
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-foreground = ${colors.foreground-alt}
-
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 500
 
 [module/temperature]
 type = internal/temperature
@@ -457,3 +494,9 @@ format-prefix = " "
 format = <label>
 exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist}: {song}'
 format-underline = #1db954
+
+[module/openweathermap-detailed]
+type = custom/script
+exec = ~/.config/polybar/scripts/openweathermap-detailed.sh
+interval = 600
+label-font = 3
